@@ -131,29 +131,6 @@ public final class EncodeUtils {
 		}
 	}
 
-/*	public static String md5base64(String in) {
-
-		try {
-			return Base64Android.encodeToString(MessageDigest.getInstance("MD5").digest(in.getBytes(Charset.forName(EncodeUtils.UTF_8))), Base64Android.NO_WRAP | Base64Android.NO_PADDING);
-		}
-		catch (NoSuchAlgorithmException e) {
-			log.severe("Unexpected error: MD5 digest algorithm not available.");
-		}
-		return null;
-	}
-
-	public static String md5base64(byte[] in) {
-
-		try {
-			return Base64Android.encodeToString(MessageDigest.getInstance("MD5").digest(in), Base64Android.NO_WRAP | Base64Android.NO_PADDING);
-		}
-		catch (NoSuchAlgorithmException e) {
-			log.severe("Unexpected error: MD5 digest algorithm not available.");
-		}
-		return null;
-	}*/
-
-
 	public static String md5Hex(String in) {
 
 		if (StringUtils.isNullOrEmptyTrimmed(in)) {
@@ -214,4 +191,3 @@ public final class EncodeUtils {
 		}
 	}
 }
-

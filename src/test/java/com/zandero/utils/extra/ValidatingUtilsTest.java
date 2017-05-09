@@ -1,6 +1,5 @@
 package com.zandero.utils.extra;
 
-import com.zandero.utils.UrlUtils;
 import net.trajano.commons.testing.UtilityClassTestUtil;
 import org.junit.Test;
 
@@ -56,11 +55,11 @@ public class ValidatingUtilsTest {
 	@Test
 	public void isUrlTest() {
 
-		assertTrue(UrlUtils.isUrl("http://some.com/test"));
-		assertTrue(UrlUtils.isUrl("http://www.some.com/somewhere"));
-		assertTrue(UrlUtils.isUrl("http://some.com/somewhere"));
+		assertTrue(ValidatingUtils.isUrl("http://some.com/test"));
+		assertTrue(ValidatingUtils.isUrl("http://www.some.com/somewhere"));
+		assertTrue(ValidatingUtils.isUrl("http://some.com/somewhere"));
 
-		assertFalse(UrlUtils.isUrl("http://some/test"));
-		assertFalse(UrlUtils.isUrl("some"));
+		assertFalse(ValidatingUtils.isUrl("http://some/test"));
+		assertFalse(ValidatingUtils.isUrl("some"));
 	}
 }
