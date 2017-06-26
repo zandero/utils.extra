@@ -15,7 +15,6 @@ import java.util.Map;
 
 public final class JsonUtils {
 
-
 	private JsonUtils() {
 
 	}
@@ -24,22 +23,15 @@ public final class JsonUtils {
 		@Override
 		protected ObjectMapper initialValue() {
 
-			return new ObjectMapper();
-		}
-	};
-
-	private static final ThreadLocal<ObjectMapper> tlCustomMapper  = new ThreadLocal<ObjectMapper>() {
-		@Override
-		protected ObjectMapper initialValue() {
-
 			return customMapper;
 		}
 	};
 
-	private static ObjectMapper customMapper = null;
+	private static ObjectMapper customMapper = new ObjectMapper();
 
 	public static void setObjectMapper(ObjectMapper mapper) {
 		Assert.notNull(mapper, "Missing object mapper!");
+		tlObjectMapper.remove();
 		customMapper = mapper;
 	}
 
@@ -48,14 +40,9 @@ public final class JsonUtils {
 	 *
 	 * @return ObjectMapper.
 	 */
-	private static ObjectMapper getObjectMapper() {
+	static ObjectMapper getObjectMapper() {
 
-		if (customMapper == null) {
-			return tlObjectMapper.get();
-		}
-		else {
-			return tlCustomMapper.get();
-		}
+		return tlObjectMapper.get();
 	}
 
 	/**
@@ -68,8 +55,7 @@ public final class JsonUtils {
 
 		try {
 			return getObjectMapper().writeValueAsString(object);
-		}
-		catch (JsonProcessingException e) {
+		} catch (JsonProcessingException e) {
 			throw new IllegalArgumentException("Given Object could not be serialized to JSON. Error: " + e.getMessage());
 		}
 	}
@@ -89,8 +75,7 @@ public final class JsonUtils {
 
 		try {
 			return customMapper.writeValueAsString(object);
-		}
-		catch (JsonProcessingException e) {
+		} catch (JsonProcessingException e) {
 			throw new IllegalArgumentException("Given Object could not be serialized to JSON. Error: " + e.getMessage());
 		}
 	}
@@ -107,8 +92,7 @@ public final class JsonUtils {
 
 		try {
 			return getObjectMapper().readValue(json, valueType);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new IllegalArgumentException("Given JSON could not be de-serialized. Error: " + e.getMessage());
 		}
 	}
@@ -127,8 +111,7 @@ public final class JsonUtils {
 
 		try {
 			return getObjectMapper().readValue(json, reference);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new IllegalArgumentException("Given JSON could not be deserialized. Error: " + e.getMessage());
 		}
 	}
@@ -154,8 +137,7 @@ public final class JsonUtils {
 
 		try {
 			return mapper.readValue(json, reference);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new IllegalArgumentException("Given JSON could not be deserialized. Error: " + e.getMessage());
 		}
 	}
@@ -177,8 +159,7 @@ public final class JsonUtils {
 
 		try {
 			return mapper.readValue(json, valueType);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new IllegalArgumentException("Given JSON could not be deserialized. Error: " + e.getMessage());
 		}
 	}
@@ -218,8 +199,7 @@ public final class JsonUtils {
 		try {
 			CollectionType listType = getObjectMapper().getTypeFactory().constructCollectionType(List.class, clazz);
 			return getObjectMapper().readValue(data, listType);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new IllegalArgumentException("Given JSON: '" + data + "' could not be deserialized to List<" + clazz.getSimpleName() + ">. Error: " + e.getMessage());
 		}
 	}
@@ -229,8 +209,7 @@ public final class JsonUtils {
 		try {
 			CollectionType listType = mapper.getTypeFactory().constructCollectionType(List.class, clazz);
 			return mapper.readValue(data, listType);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new IllegalArgumentException("Given JSON: '" + data + "' could not be deserialized to List<" + clazz.getSimpleName() + ">. Error: " + e.getMessage());
 		}
 	}
@@ -240,10 +219,10 @@ public final class JsonUtils {
 		try {
 			MapType mapType = getObjectMapper().getTypeFactory().constructMapType(Map.class, keyClazz, elementClazz);
 			return getObjectMapper().readValue(data, mapType);
-		}
-		catch (IOException e) {
+		} catch (IOException e) {
 			throw new IllegalArgumentException(
-				"Given JSON: '" + data + "' could not be deserialized to Map<" + keyClazz.getSimpleName() + ", " + elementClazz.getSimpleName() + ">. Error: " + e.getMessage());
+					                                  "Given JSON: '" + data + "' could not be deserialized to Map<" + keyClazz.getSimpleName() + ", " + elementClazz
+							                                                                                                                                     .getSimpleName() + ">. Error: " + e.getMessage());
 		}
 	}
 

@@ -26,5 +26,7 @@ public class Dummy {
 	}
 
 	protected int notShown;
+
+	public Long someValue;
 }
 
