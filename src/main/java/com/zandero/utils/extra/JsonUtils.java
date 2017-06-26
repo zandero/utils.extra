@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.MapType;
+import com.zandero.utils.Assert;
 import com.zandero.utils.StringUtils;
 
 import java.io.IOException;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class JsonUtils {
+
 
 	private JsonUtils() {
 
@@ -26,14 +28,34 @@ public final class JsonUtils {
 		}
 	};
 
+	private static final ThreadLocal<ObjectMapper> tlCustomMapper  = new ThreadLocal<ObjectMapper>() {
+		@Override
+		protected ObjectMapper initialValue() {
+
+			return customMapper;
+		}
+	};
+
+	private static ObjectMapper customMapper = null;
+
+	public static void setObjectMapper(ObjectMapper mapper) {
+		Assert.notNull(mapper, "Missing object mapper!");
+		customMapper = mapper;
+	}
+
 	/**
 	 * Returns a thread-local instance of JSON ObjectMapper.
 	 *
 	 * @return ObjectMapper.
 	 */
-	public static ObjectMapper getObjectMapper() {
+	private static ObjectMapper getObjectMapper() {
 
-		return tlObjectMapper.get();
+		if (customMapper == null) {
+			return tlObjectMapper.get();
+		}
+		else {
+			return tlCustomMapper.get();
+		}
 	}
 
 	/**
