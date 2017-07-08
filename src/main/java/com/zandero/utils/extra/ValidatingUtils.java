@@ -9,6 +9,9 @@ import java.util.regex.PatternSyntaxException;
 
 public final class ValidatingUtils {
 
+	// if any of these are present ... check ... if it is a regular expression
+	private static final String REG_EX_CHARS = "'[{'\\^$.|?*+(";
+
 	private ValidatingUtils() {
 		// hiding constructor
 	}
@@ -51,13 +54,11 @@ public final class ValidatingUtils {
 			return false;
 		}
 
-		String REG_EX_CHARS = "'[{'\\^$.|?*+("; // if any of these are present ... check ... if it is a regular expression
 		if (value.chars().noneMatch(ch -> REG_EX_CHARS.indexOf(ch) > 0)) {
 			return false;
 		}
 
 		try {
-
 			Pattern.compile(value);
 			return true;
 		}

@@ -40,7 +40,7 @@ public final class JsonUtils {
 	 *
 	 * @return ObjectMapper.
 	 */
-	static ObjectMapper getObjectMapper() {
+	public static ObjectMapper getObjectMapper() {
 
 		return tlObjectMapper.get();
 	}
