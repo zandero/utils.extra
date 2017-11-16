@@ -12,6 +12,9 @@ public final class ValidatingUtils {
 	// if any of these are present ... check ... if it is a regular expression
 	private static final String REG_EX_CHARS = "'[{'\\^$.|?*+(";
 
+	private static final Pattern IP_V4_PATTERN = Pattern.compile("^(([01]?\\d\\d?|2[0-4]\\d|25[0-5])\\.){3}([01]?\\d\\d?|2[0-4]\\d|25[0-5])$");
+
+
 	private ValidatingUtils() {
 		// hiding constructor
 	}
@@ -25,7 +28,7 @@ public final class ValidatingUtils {
 	public static boolean isEmail(String email) {
 
 		return !StringUtils.isNullOrEmptyTrimmed(email) &&
-			EmailValidator.getInstance().isValid(email.trim().toLowerCase());
+		       EmailValidator.getInstance().isValid(email.trim().toLowerCase());
 	}
 
 	/**
@@ -37,14 +40,25 @@ public final class ValidatingUtils {
 	public static boolean isUrl(String value) {
 
 		return !StringUtils.isNullOrEmptyTrimmed(value) &&
-			UrlValidator.getInstance().isValid(value);
+		       UrlValidator.getInstance().isValid(value);
+	}
 
+	/**
+	 * Checks valus is a regular IPv4 address
+	 * @param value to check
+	 * @return true if IPv4, false otherwise
+	 */
+	public static boolean isIPv4(String value) {
+
+		return !StringUtils.isNullOrEmptyTrimmed(value) &&
+		       IP_V4_PATTERN.matcher(value.trim()).matches();
 	}
 
 	/**
 	 * Utility to find out if given string is a regular expression
 	 * Strings without special regular expression characters are not considered regular expressions,
 	 * but they technically are
+	 *
 	 * @param value to check if regular expression
 	 * @return true if regular expression, false otherwise
 	 */

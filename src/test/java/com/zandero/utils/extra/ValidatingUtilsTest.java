@@ -60,6 +60,15 @@ public class ValidatingUtilsTest {
 		assertTrue(ValidatingUtils.isUrl("http://some.com/somewhere"));
 
 		assertFalse(ValidatingUtils.isUrl("http://some/test"));
+		assertFalse(ValidatingUtils.isUrl("127.0.0.1"));
 		assertFalse(ValidatingUtils.isUrl("some"));
+	}
+
+	@Test
+	public void isIPv4Test() {
+
+		assertTrue(ValidatingUtils.isIPv4("127.0.0.1"));
+		assertFalse(ValidatingUtils.isIPv4("127.a.0.1"));
+		assertFalse(ValidatingUtils.isIPv4("http://some.com/test"));
 	}
 }

@@ -23,9 +23,9 @@
     </licenses>
 
     <scm>
-        <url>https://github.com/Zandero/utils</url>
-        <connection>scm:git:git://github.com/Zandero/utils.git</connection>
-        <developerConnection>scm:git:git@github.com/Zandero/utils.git</developerConnection>
+        <url>https://github.com/Zandero/utils.extra</url>
+        <connection>scm:git:git://github.com/Zandero/utils.extra.git</connection>
+        <developerConnection>scm:git:git@github.com/Zandero/utils.extra.git</developerConnection>
     </scm>
 
     <developers>
