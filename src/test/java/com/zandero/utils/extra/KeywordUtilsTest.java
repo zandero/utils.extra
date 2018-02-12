@@ -1,13 +1,12 @@
-package extra;
+package com.zandero.utils.extra;
 
-import com.zandero.utils.extra.KeywordUtils;
+import com.zandero.utils.junit.AssertFinalClass;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -17,16 +16,18 @@ import static org.junit.Assert.assertTrue;
 public class KeywordUtilsTest {
 
 	@Test
-	public void testDefinition() throws ReflectiveOperationException {
+	public void testDefinition() {
 
-		assertUtilityClassWellDefined(KeywordUtils.class);
+		AssertFinalClass.isWellDefined(KeywordUtils.class);
 	}
 
 	@Test
 	public void extractKeywordsTest() {
 
-		Set<String> keywords = KeywordUtils.extractKeywords("Evaluates and calculates costs of phone calls according to source, destination, duration and associated price plan",
-			KeywordUtils.getStopWords(), 100);
+		Set<String> keywords = KeywordUtils.extractKeywords(
+			"Evaluates and calculates costs of phone calls according to source, destination, duration and associated price plan",
+			KeywordUtils.getStopWords(),
+			100);
 
 		assertEquals(12, keywords.size());
 
@@ -44,8 +45,9 @@ public class KeywordUtilsTest {
 		assertTrue(keywords.contains("source"));
 
 		// 2.
-		keywords = KeywordUtils.extractKeywords("Windows Explorer Extension to Operate Git; Mirror of official repository https://tortoisegit.org/sourcecode",
-			KeywordUtils.getStopWords(), 6);
+		keywords = KeywordUtils
+			           .extractKeywords("Windows Explorer Extension to Operate Git; Mirror of official repository https://tortoisegit.org/sourcecode",
+			                            KeywordUtils.getStopWords(), 6);
 
 		assertEquals(6, keywords.size());
 		assertTrue(keywords.contains("windows"));
@@ -57,8 +59,10 @@ public class KeywordUtilsTest {
 		/*assertTrue(keywords.contains("official"));
 		assertTrue(keywords.contains("repository"));*/
 
-		keywords = KeywordUtils.extractKeywords("This contains the latest examples for my book \"Realizing Enterprise Architectural Patterns with Maven and JEE6\"",
-			KeywordUtils.getStopWords(), 100);
+		keywords = KeywordUtils.extractKeywords(
+			"This contains the latest examples for my book \"Realizing Enterprise Architectural Patterns with Maven and JEE6\"",
+			KeywordUtils.getStopWords(),
+			100);
 
 		assertEquals(9, keywords.size());
 		assertTrue(keywords.contains("contains"));
@@ -72,7 +76,9 @@ public class KeywordUtilsTest {
 		assertTrue(keywords.contains("maven"));
 		// assertTrue(keywords.contains("JEE6"));
 
-		keywords = KeywordUtils.extractKeywords("Roger's internal load balancer and frontend proxy. Based on https://github.com/QubitProducts/bamboo", KeywordUtils.getStopWords(), 0);
+		keywords = KeywordUtils.extractKeywords("Roger's internal load balancer and frontend proxy. Based on https://github.com/QubitProducts/bamboo",
+		                                        KeywordUtils.getStopWords(),
+		                                        0);
 
 		assertEquals(7, keywords.size());
 		assertTrue(keywords.contains("roger"));

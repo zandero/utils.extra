@@ -3,6 +3,7 @@ package com.zandero.utils.extra;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zandero.utils.junit.AssertFinalClass;
 import com.zandero.utils.test.Dummy;
 import org.junit.Assert;
 import org.junit.Test;
@@ -13,15 +14,14 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
 import static org.junit.Assert.*;
 
 public class JsonUtilsTest {
 
 	@Test
-	public void testDefinition() throws ReflectiveOperationException {
+	public void testDefinition() {
 
-		assertUtilityClassWellDefined(JsonUtils.class);
+		AssertFinalClass.isWellDefined(JsonUtils.class);
 	}
 
 	@Test

@@ -12,6 +12,8 @@ import java.util.Map;
  */
 public final class UrlUtils {
 
+	private static final String UTF_8 = "UTF-8";
+
 	private UrlUtils() {
 		// hide constructor
 	}
@@ -207,7 +209,7 @@ public final class UrlUtils {
 	public static String urlEncode(String path) {
 
 		try {
-			String decodedURL = URLDecoder.decode(path, EncodeUtils.UTF_8);
+			String decodedURL = URLDecoder.decode(path, UTF_8);
 			URL url = new URL(decodedURL);
 			URI uri = new URI(url.getProtocol(), url.getUserInfo(), url.getHost(), url.getPort(), url.getPath(), url.getQuery(), url.getRef());
 			return uri.toASCIIString().trim();
@@ -269,7 +271,7 @@ public final class UrlUtils {
 		}
 
 		try {
-			return URLEncoder.encode(query, EncodeUtils.UTF_8);
+			return URLEncoder.encode(query, UTF_8);
 		}
 		catch (UnsupportedEncodingException e) {
 			e.printStackTrace();

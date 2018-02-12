@@ -1,22 +1,21 @@
-package extra;
+package com.zandero.utils.extra;
 
-import com.zandero.utils.extra.UrlUtils;
+import com.zandero.utils.junit.AssertFinalClass;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static net.trajano.commons.testing.UtilityClassTestUtil.assertUtilityClassWellDefined;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class UrlUtilsTest {
 
 	@Test
-	public void testDefinition() throws ReflectiveOperationException {
+	public void testDefinition() {
 
-		assertUtilityClassWellDefined(UrlUtils.class);
+		AssertFinalClass.isWellDefined(UrlUtils.class);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -105,7 +104,8 @@ public class UrlUtilsTest {
 		assertEquals("http://test.com/somepath?X=1&A=1&B=%3C%3F%3E&C=a", UrlUtils.composeUrl("http", "test.com", 80, "/somepath?X=1", query));
 		assertEquals("http://test.com/somepath?X=1&A=1&B=%3C%3F%3E&C=a", UrlUtils.composeUrl("http", "test.com", 80, "/somepath?X=1&", query));
 		assertEquals("http://test.com/somepath?X=1&Y=2&A=1&B=%3C%3F%3E&C=a", UrlUtils.composeUrl("http", "test.com", 80, "/somepath?X=1&Y=2", query));
-		assertEquals("http://test.com/somepath?X=1&Y=2&A=1&B=%3C%3F%3E&C=a", UrlUtils.composeUrl("http", "test.com", 80, "/somepath?X=1&Y=2&", query));
+		assertEquals("http://test.com/somepath?X=1&Y=2&A=1&B=%3C%3F%3E&C=a",
+		             UrlUtils.composeUrl("http", "test.com", 80, "/somepath?X=1&Y=2&", query));
 	}
 
 	@Test
@@ -165,14 +165,16 @@ public class UrlUtilsTest {
 	@Test
 	public void urlEncodeTest() {
 
-		assertEquals("http://cdn.jsdelivr.net/webjars/org.webjars/browser-sync/2.7.5/node_modules/istanbul/node_modules/fileset/tests/fixtures/an%20(odd)%20filename.js",
-			UrlUtils.urlEncode("http://cdn.jsdelivr.net/webjars/org.webjars/browser-sync/2.7.5/node_modules/istanbul/node_modules/fileset/tests/fixtures/an (odd) filename.js"));
+		assertEquals(
+			"http://cdn.jsdelivr.net/webjars/org.webjars/browser-sync/2.7.5/node_modules/istanbul/node_modules/fileset/tests/fixtures/an%20(odd)%20filename.js",
+			UrlUtils.urlEncode(
+				"http://cdn.jsdelivr.net/webjars/org.webjars/browser-sync/2.7.5/node_modules/istanbul/node_modules/fileset/tests/fixtures/an (odd) filename.js"));
 
 		assertEquals("http://cdn.jsdelivr.net/some?pace=in%20the%20sun",
-			UrlUtils.urlEncode("http://cdn.jsdelivr.net/some?pace=in the sun"));
+		             UrlUtils.urlEncode("http://cdn.jsdelivr.net/some?pace=in the sun"));
 
 		assertEquals("http://cdn.jsdelivr.net/some?pace=in%20the%20sun&is='high'",
-			UrlUtils.urlEncode("http://cdn.jsdelivr.net/some?pace=in the sun&is='high'"));
+		             UrlUtils.urlEncode("http://cdn.jsdelivr.net/some?pace=in the sun&is='high'"));
 	}
 
 	@Test

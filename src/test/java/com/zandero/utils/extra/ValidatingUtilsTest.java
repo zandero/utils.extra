@@ -1,6 +1,6 @@
 package com.zandero.utils.extra;
 
-import net.trajano.commons.testing.UtilityClassTestUtil;
+import com.zandero.utils.junit.AssertFinalClass;
 import org.junit.Test;
 
 import static org.junit.Assert.assertFalse;
@@ -10,9 +10,9 @@ import static org.junit.Assert.assertTrue;
 public class ValidatingUtilsTest {
 
 	@Test
-	public void testDefinition() throws ReflectiveOperationException {
+	public void testDefinition() {
 
-		UtilityClassTestUtil.assertUtilityClassWellDefined(ValidatingUtils.class);
+		AssertFinalClass.isWellDefined(ValidatingUtils.class);
 	}
 
 	@Test
