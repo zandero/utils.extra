@@ -53,6 +53,7 @@
         <version.mockito-all>[1.10.19,)</version.mockito-all>
 
         <version.utils>[1.2,)</version.utils>
+        <version.utils.validation>[1.0,)</version.utils.validation>
         <version.utils.junit>[1.0,)</version.utils.junit>
     </properties>
 
@@ -62,6 +63,12 @@
             <groupId>com.zandero</groupId>
             <artifactId>utils</artifactId>
             <version>${version.utils}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.zandero</groupId>
+            <artifactId>utils.validation</artifactId>
+            <version>${version.utils.validation}</version>
         </dependency>
 
         <dependency>
