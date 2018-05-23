@@ -1,7 +1,7 @@
 package com.zandero.utils.extra;
 
 import com.zandero.utils.junit.AssertFinalClass;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,16 +13,16 @@ import static org.junit.Assert.assertTrue;
 /**
  *
  */
-public class KeywordUtilsTest {
+class KeywordUtilsTest {
 
 	@Test
-	public void testDefinition() {
+	void testDefinition() {
 
 		AssertFinalClass.isWellDefined(KeywordUtils.class);
 	}
 
 	@Test
-	public void extractKeywordsTest() {
+	void extractKeywordsTest() {
 
 		Set<String> keywords = KeywordUtils.extractKeywords(
 			"Evaluates and calculates costs of phone calls according to source, destination, duration and associated price plan",
@@ -91,7 +91,7 @@ public class KeywordUtilsTest {
 	}
 
 	@Test
-	public void sortByAppearanceTest() {
+	void sortByAppearanceTest() {
 
 		Map<String, Integer> keywords = new HashMap<>();
 		keywords.put("A", 10);

@@ -1,43 +1,45 @@
 package com.zandero.utils.extra;
 
 import com.zandero.utils.junit.AssertFinalClass;
-import org.junit.Assert;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-public class UrlUtilsTest {
+
+class UrlUtilsTest {
 
 	@Test
-	public void testDefinition() {
+	void testDefinition() {
 
 		AssertFinalClass.isWellDefined(UrlUtils.class);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetFullUrlWithoutRootUrl() {
+	@Test
+	void testGetFullUrlWithoutRootUrl() {
 
-		UrlUtils.composeUrl(null, null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetFullUrlWithoutRootUrl_2() {
-
-		UrlUtils.composeUrl("", null);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetFullUrlWithoutRootUrl_3() {
-
-		UrlUtils.composeUrl("  ", null);
+		assertThrows(IllegalArgumentException.class,
+		             () -> UrlUtils.composeUrl(null, null));
 	}
 
 	@Test
-	public void composeUrlTest() {
+	void testGetFullUrlWithoutRootUrl_2() {
+
+		assertThrows(IllegalArgumentException.class,
+		             () -> UrlUtils.composeUrl("", null));
+	}
+
+	@Test
+	void testGetFullUrlWithoutRootUrl_3() {
+
+		assertThrows(IllegalArgumentException.class,
+		             () -> UrlUtils.composeUrl("  ", null));
+	}
+
+	@Test
+	void composeUrlTest() {
 
 		assertEquals("http://test.com", UrlUtils.composeUrl("http://test.com", null));
 		assertEquals("http://test.com", UrlUtils.composeUrl("http://test.com/", ""));
@@ -50,33 +52,33 @@ public class UrlUtilsTest {
 	}
 
 	@Test
-	public void testGetFullUrl() {
+	void testGetFullUrl() {
 
-		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", null));
-		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", null));
+		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", null));
+		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", null));
 
-		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", "/"));
-		Assert.assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com", "test"));
-		Assert.assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com", "/test"));
+		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", "/"));
+		assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com", "test"));
+		assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com", "/test"));
 
-		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", "/"));
-		Assert.assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com/", "test"));
-		Assert.assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com/", "/test"));
+		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", "/"));
+		assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com/", "test"));
+		assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com/", "/test"));
 	}
 
 	@Test
-	public void testGetFullUrl_2() {
+	void testGetFullUrl_2() {
 
-		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", "http://zandero.com"));
-		Assert.assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", "http://zandero.com"));
+		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", "http://zandero.com"));
+		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", "http://zandero.com"));
 
-		Assert.assertEquals("http://zandero.com/test.html", UrlUtils.composeUrl("http://zandero.com", "http://zandero.com/test.html"));
-		Assert.assertEquals("http://zandero.com/test/test.html", UrlUtils.composeUrl("http://zandero.com", "http://zandero.com/test/test.html"));
+		assertEquals("http://zandero.com/test.html", UrlUtils.composeUrl("http://zandero.com", "http://zandero.com/test.html"));
+		assertEquals("http://zandero.com/test/test.html", UrlUtils.composeUrl("http://zandero.com", "http://zandero.com/test/test.html"));
 	}
 
 
 	@Test
-	public void composeUrlTest2() {
+	void composeUrlTest2() {
 
 		assertEquals("http://test.com", UrlUtils.composeUrl("http", "test.com", 80));
 		assertEquals("http://test.com", UrlUtils.composeUrl("http", "test.com", 443));
@@ -90,7 +92,7 @@ public class UrlUtilsTest {
 	}
 
 	@Test
-	public void composeUrlTestWithQuery() {
+	void composeUrlTestWithQuery() {
 
 		Map<String, String> query = new HashMap<>();
 		query.put("A", "1");
@@ -109,7 +111,7 @@ public class UrlUtilsTest {
 	}
 
 	@Test
-	public void composeUrlTestWithQueryMissing() {
+	void composeUrlTestWithQueryMissing() {
 
 		Map<String, String> query = new HashMap<>();
 		query.put("A", "");
@@ -127,7 +129,7 @@ public class UrlUtilsTest {
 	}
 
 	@Test
-	public void composeUrlTestWithQueryInvalid() {
+	void composeUrlTestWithQueryInvalid() {
 
 		Map<String, String> query = new HashMap<>();
 		query.put("A", "");
@@ -144,7 +146,7 @@ public class UrlUtilsTest {
 	}
 
 	@Test
-	public void testResolveDomainName() {
+	void testResolveDomainName() {
 
 		assertEquals("test.something.com", UrlUtils.resolveDomain("http://test.something.com/some/server.html"));
 		assertEquals("test.something.com", UrlUtils.resolveDomain("test.something.com/hello"));
@@ -163,7 +165,7 @@ public class UrlUtilsTest {
 	}
 
 	@Test
-	public void urlEncodeTest() {
+	void urlEncodeTest() {
 
 		assertEquals(
 			"http://cdn.jsdelivr.net/webjars/org.webjars/browser-sync/2.7.5/node_modules/istanbul/node_modules/fileset/tests/fixtures/an%20(odd)%20filename.js",
@@ -178,7 +180,7 @@ public class UrlUtilsTest {
 	}
 
 	@Test
-	public void resolveUrlParts() {
+	void resolveUrlParts() {
 
 		assertEquals("http", UrlUtils.resolveScheme("http://test.com:80"));
 		assertEquals("test.com", UrlUtils.resolveDomain("http://test.com:80"));
@@ -190,14 +192,14 @@ public class UrlUtilsTest {
 	}
 
 	@Test
-	public void encodeQueryTest() {
+	void encodeQueryTest() {
 
 		assertEquals("some+search+with+spaces", UrlUtils.encodeQuery("some search with spaces"));
 		assertEquals("http%3A%2F%2Ftest.com%3A80", UrlUtils.encodeQuery("http://test.com:80"));
 	}
 
 	@Test
-	public void parseQueryTest() {
+	void parseQueryTest() {
 
 		Map<String, String> map = UrlUtils.getQuery("http://some.com/somewhere");
 		assertTrue(map.isEmpty());
@@ -218,7 +220,7 @@ public class UrlUtilsTest {
 	}
 
 	@Test
-	public void getBaseUrlTest() {
+	void getBaseUrlTest() {
 
 		assertEquals("http://some.com", UrlUtils.getBaseUrl("http://some.com/somewhere"));
 		assertEquals("http://some.com", UrlUtils.getBaseUrl("http://some.com/"));
