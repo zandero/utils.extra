@@ -123,7 +123,27 @@ public final class UrlUtils {
 			domain = domain + ":" + port;
 		}
 
-		String queryString = "";
+		return composeUrl(scheme + "://" + domain + path, query);
+	}
+
+	public static String composeUrl(String path, Map<String, String> query) {
+		// clean up ...
+		if (path.endsWith("/") || path.endsWith("?") || path.endsWith("&")) {
+			path = path.substring(0, path.length() - 1);
+		}
+
+		String queryString = composeQuery(query);
+		if (queryString.length() > 1) {
+			// path already contains some query ... continue
+			queryString = (path.contains("?") ? "&" : "?") + queryString;
+		}
+
+		return path + queryString;
+	}
+
+	public static String composeQuery(Map<String, String> query) {
+
+		StringBuilder queryString = new StringBuilder();
 		if (query != null && query.size() > 0) {
 
 			for (String name : query.keySet()) {
@@ -131,28 +151,20 @@ public final class UrlUtils {
 				String value = query.get(name);
 
 				if (!StringUtils.isNullOrEmptyTrimmed(name) &&
-					!StringUtils.isNullOrEmptyTrimmed(value)) {
+				    !StringUtils.isNullOrEmptyTrimmed(value)) {
 
 					if (queryString.length() > 1) {
-						queryString = queryString + "&";
+						queryString.append("&");
 					}
 
-					queryString = queryString + name + "=" + encodeQuery(value);
+					queryString.append(encodeQuery(name));
+					queryString.append("=");
+					queryString.append(encodeQuery(value));
 				}
 			}
 		}
 
-		// clean up ...
-		if (path.endsWith("/") || path.endsWith("?") || path.endsWith("&")) {
-			path = path.substring(0, path.length() - 1);
-		}
-
-		if (queryString.length() > 1) {
-			// path already contains some query ... continue
-			queryString = (path.contains("?") ? "&" : "?") + queryString;
-		}
-
-		return scheme + "://" + domain + path + queryString;
+		return queryString.toString();
 	}
 
 	/**

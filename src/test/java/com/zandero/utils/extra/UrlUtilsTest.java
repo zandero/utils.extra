@@ -6,7 +6,9 @@ import org.junit.jupiter.api.Test;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 class UrlUtilsTest {
@@ -21,29 +23,30 @@ class UrlUtilsTest {
 	void testGetFullUrlWithoutRootUrl() {
 
 		assertThrows(IllegalArgumentException.class,
-		             () -> UrlUtils.composeUrl(null, null));
+		             () -> UrlUtils.composeUrl(null, (String)null));
 	}
 
 	@Test
 	void testGetFullUrlWithoutRootUrl_2() {
 
 		assertThrows(IllegalArgumentException.class,
-		             () -> UrlUtils.composeUrl("", null));
+		             () -> UrlUtils.composeUrl("", (String)null));
 	}
 
 	@Test
 	void testGetFullUrlWithoutRootUrl_3() {
 
 		assertThrows(IllegalArgumentException.class,
-		             () -> UrlUtils.composeUrl("  ", null));
+		             () -> UrlUtils.composeUrl("  ", (String)null));
 	}
 
 	@Test
 	void composeUrlTest() {
 
-		assertEquals("http://test.com", UrlUtils.composeUrl("http://test.com", null));
+		assertEquals("http://test.com", UrlUtils.composeUrl("http://test.com", (String)null));
 		assertEquals("http://test.com", UrlUtils.composeUrl("http://test.com/", ""));
-		assertEquals("https://test.com", UrlUtils.composeUrl("https://test.com/", null));
+		assertEquals("https://test.com", UrlUtils.composeUrl("https://test.com/", (String)null));
+		assertEquals("https://test.com", UrlUtils.composeUrl("https://test.com/", (Map<String, String>)null));
 
 		assertEquals("http://test.com/test", UrlUtils.composeUrl("http://test.com", "/test"));
 		assertEquals("http://test.com/test", UrlUtils.composeUrl("http://test.com/", "/test"));
@@ -54,8 +57,9 @@ class UrlUtilsTest {
 	@Test
 	void testGetFullUrl() {
 
-		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", null));
-		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", null));
+		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", (String)null));
+		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", (String)null));
+		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com/", (Map<String, String>)null));
 
 		assertEquals("http://zandero.com", UrlUtils.composeUrl("http://zandero.com", "/"));
 		assertEquals("http://zandero.com/test", UrlUtils.composeUrl("http://zandero.com", "test"));
@@ -225,5 +229,33 @@ class UrlUtilsTest {
 		assertEquals("http://some.com", UrlUtils.getBaseUrl("http://some.com/somewhere"));
 		assertEquals("http://some.com", UrlUtils.getBaseUrl("http://some.com/"));
 		assertEquals("http://build.zandero.co:8083", UrlUtils.getBaseUrl("http://build.zandero.co:8083/rest/api/2/user?username=xrado"));
+	}
+
+	@Test
+	void composeQuery() {
+
+		assertEquals("", UrlUtils.composeQuery(null));
+		assertEquals("", UrlUtils.composeQuery(new HashMap<>()));
+
+		Map<String, String> map = new HashMap<>();
+		map.put("a", "1");
+		assertEquals("a=1", UrlUtils.composeQuery(map));
+
+		map.put("file", "an (odd) filename.js");
+		assertEquals("a=1&file=an+%28odd%29+filename.js", UrlUtils.composeQuery(map));
+	}
+
+	@Test
+	void composeUrl() {
+
+		assertEquals("http://some.domain.com", UrlUtils.composeUrl("http://some.domain.com", (String)null));
+		assertEquals("http://some.domain.com", UrlUtils.composeUrl("http://some.domain.com", new HashMap<>()));
+
+		Map<String, String> map = new HashMap<>();
+		map.put("a", "1");
+		assertEquals("http://some.domain.com?a=1", UrlUtils.composeUrl("http://some.domain.com", map));
+
+		map.put("file", "an (odd) filename.js");
+		assertEquals("http://some.domain.com?a=1&file=an+%28odd%29+filename.js", UrlUtils.composeUrl("http://some.domain.com/", map));
 	}
 }
