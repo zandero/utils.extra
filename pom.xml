@@ -6,7 +6,7 @@
 
     <artifactId>utils.extra</artifactId>
     <groupId>com.zandero</groupId>
-    <version>1.3.3</version>
+    <version>1.4</version>
     <packaging>jar</packaging>
 
     <name>Zandero Utils Extra</name>
@@ -47,9 +47,9 @@
         <maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
 
         <version.commons.validator>[1.6,)</version.commons.validator>
-        <version.jackson>[2.7.3,)</version.jackson>
+        <version.jackson>[2.12.1,)</version.jackson>
 
-        <version.junit>[5.1.0,)</version.junit>
+        <version.junit>[5.6.0,)</version.junit>
         <version.mockito-all>[1.10.19,)</version.mockito-all>
 
         <version.utils>[1.2,)</version.utils>
@@ -74,6 +74,12 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+            <version>${version.jackson}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
             <version>${version.jackson}</version>
         </dependency>
 

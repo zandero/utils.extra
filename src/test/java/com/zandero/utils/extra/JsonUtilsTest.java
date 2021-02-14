@@ -5,15 +5,14 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zandero.utils.junit.AssertFinalClass;
 import com.zandero.utils.test.Dummy;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.mockito.Mockito;
 
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class JsonUtilsTest {
 
@@ -59,7 +58,7 @@ class JsonUtilsTest {
 	void testFromJson() {
 
 		Dummy test = JsonUtils.fromJson("{\"a\":\"1\",\"b\":2}", Dummy.class);
-		org.junit.Assert.assertEquals("1", test.a);
+		assertEquals("1", test.a);
 		assertEquals(2, test.b);
 	}
 
@@ -68,8 +67,8 @@ class JsonUtilsTest {
 
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> JsonUtils.fromJson("[\"a\":1,\"b\":2]", Dummy.class));
 		assertEquals(
-			"Given JSON could not be de-serialized. Error: Cannot deserialize instance of `com.zandero.utils.test.Dummy` out of START_ARRAY token\n" +
-			" at [Source: (String)\"[\"a\":1,\"b\":2]\"; line: 1, column: 1]",
+			"Given JSON could not be de-serialized. Error: Cannot deserialize value of type `com.zandero.utils.test.Dummy` from Array value (token `JsonToken.START_ARRAY`)\n" +
+				" at [Source: (String)\"[\"a\":1,\"b\":2]\"; line: 1, column: 1]",
 			e.getMessage());
 	}
 
@@ -100,9 +99,8 @@ class JsonUtilsTest {
 		                                                                   new TypeReference<ArrayList<DummyTo>>() {
 		                                                                   }));
 		assertEquals(
-			"Given JSON could not be deserialized. Error: Cannot construct instance of `com.zandero.utils.extra.JsonUtilsTest$DummyTo` (although at least one Creator exists): can only " +
-			"instantiate non-static inner class by using default, no-argument constructor\n" +
-			" at [Source: (String)\"[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]\"; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])",
+			"Given JSON could not be deserialized. Error: Cannot construct instance of `com.zandero.utils.extra.JsonUtilsTest$DummyTo`: non-static inner classes like this can only by instantiated using default, no-argument constructor\n" +
+				" at [Source: (String)\"[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]\"; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])",
 			e.getMessage());
 	}
 
@@ -151,9 +149,8 @@ class JsonUtilsTest {
 		                                                                   },
 		                                                                   custom));
 		assertEquals(
-			"Given JSON could not be deserialized. Error: Cannot construct instance of `com.zandero.utils.extra.JsonUtilsTest$DummyTo` (although at least one Creator exists): can only " +
-			"instantiate non-static inner class by using default, no-argument constructor\n" +
-			" at [Source: (String)\"[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]\"; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])",
+			"Given JSON could not be deserialized. Error: Cannot construct instance of `com.zandero.utils.extra.JsonUtilsTest$DummyTo`: non-static inner classes like this can only by instantiated using default, no-argument constructor\n" +
+				" at [Source: (String)\"[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]\"; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])",
 			e.getMessage());
 	}
 
@@ -197,8 +194,8 @@ class JsonUtilsTest {
 
 		ObjectMapper mapper = JsonUtils.getObjectMapper();
 		IllegalArgumentException e = assertThrows(IllegalArgumentException.class, () -> JsonUtils.fromJson("BLA", String.class, mapper));
-		assertEquals("Given JSON could not be deserialized. Error: Unrecognized token 'BLA': was expecting ('true', 'false' or 'null')\n" +
-		             " at [Source: (String)\"BLA\"; line: 1, column: 7]", e.getMessage());
+		assertEquals("Given JSON could not be deserialized. Error: Unrecognized token 'BLA': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')\n" +
+						 " at [Source: (String)\"BLA\"; line: 1, column: 4]", e.getMessage());
 	}
 
 	@Test
@@ -230,8 +227,8 @@ class JsonUtilsTest {
 		}
 		catch (IllegalArgumentException e) {
 			assertEquals("Given JSON: '[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]' could not be deserialized to List<DummyTo>. " +
-			             "Error: Cannot construct instance of `com.zandero.utils.extra.JsonUtilsTest$DummyTo` (although at least one Creator exists): can only instantiate non-static inner class by using default, no-argument constructor\n" +
-			             " at [Source: (String)\"[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]\"; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])",
+							 "Error: Cannot construct instance of `com.zandero.utils.extra.JsonUtilsTest$DummyTo`: non-static inner classes like this can only by instantiated using default, no-argument constructor\n" +
+							 " at [Source: (String)\"[{\"a\":\"1\",\"b\":2},{\"a\":\"1\",\"b\":2}]\"; line: 1, column: 3] (through reference chain: java.util.ArrayList[0])",
 			             e.getMessage());
 		}
 	}
