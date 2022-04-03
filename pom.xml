@@ -6,7 +6,7 @@
 
     <artifactId>utils.extra</artifactId>
     <groupId>com.zandero</groupId>
-    <version>1.4.3</version>
+    <version>1.5</version>
     <packaging>jar</packaging>
 
     <name>Zandero Utils Extra</name>
@@ -37,8 +37,8 @@
     </developers>
 
     <properties>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
 
         <project.encoding>UTF-8</project.encoding>
         <project.build.sourceEncoding>${project.encoding}</project.build.sourceEncoding>
@@ -53,9 +53,9 @@
         <version.junit>[5.6.0,)</version.junit>
         <version.mockito-all>[1.10.19,)</version.mockito-all>
 
-        <version.utils>[1.2,)</version.utils>
+        <version.utils>[1.3,)</version.utils>
         <version.utils.validation>[1.0.1,)</version.utils.validation>
-        <version.utils.junit>[1.0,)</version.utils.junit>
+        <version.utils.junit>[1.1,)</version.utils.junit>
     </properties>
 
     <dependencies>
@@ -134,14 +134,14 @@
                 <version>3.5.1</version>
                 <configuration>
                     <encoding>UTF-8</encoding>
-                    <source>1.8</source>
-                    <target>1.8</target>
+                    <source>11</source>
+                    <target>11</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.sonatype.plugins</groupId>
                 <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.6</version>
+                <version>1.6.12</version>
                 <extensions>true</extensions>
                 <configuration>
                     <!-- for production deployment -->
@@ -157,7 +157,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
-                <version>3.0.0</version>
+                <version>3.2.1</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -170,7 +170,7 @@
             <plugin> <!-- Update for JAVA 11 -->
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>2.10.3</version>
+                <version>3.3.1</version>
                 <configuration>
                     <source>8</source>
                 </configuration>
@@ -186,7 +186,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-gpg-plugin</artifactId>
-                <version>1.6</version>
+                <version>3.0.1</version>
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>

@@ -7,7 +7,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- *
+ * Utilities to work with words
  */
 public final class KeywordUtils {
 
@@ -82,9 +82,9 @@ public final class KeywordUtils {
 				}
 			}
 
-			if (max > 0 && keywords.size() >= max) {
+			/*if (max > 0 && keywords.size() >= max) {
 				return keywords;
-			}
+			}*/
 		}
 
 		return keywords;
