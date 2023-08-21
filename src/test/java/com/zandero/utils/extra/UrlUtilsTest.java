@@ -77,6 +77,14 @@ class UrlUtilsTest {
         assertEquals("http://zandero.com/test/test.html", UrlUtils.composeUrl("http://zandero.com", "http://zandero.com/test/test.html"));
     }
 
+    @Test
+    void testGetFullUrl_3() {
+        assertEquals("http://zandero.com/api/test.html", UrlUtils.composeUrl("http://zandero.com/api", "test.html"));
+        assertEquals("http://zandero.com/api/test.html", UrlUtils.composeUrl("http://zandero.com/api/", "test.html"));
+        assertEquals("http://zandero.com/api/test.html", UrlUtils.composeUrl("http://zandero.com/api", "/test.html"));
+        assertEquals("http://zandero.com/api/test.html", UrlUtils.composeUrl("http://zandero.com/api/", "/test.html"));
+    }
+
 
     @Test
     void composeUrlTest2() {

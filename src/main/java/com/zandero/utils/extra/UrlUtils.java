@@ -52,7 +52,10 @@ public final class UrlUtils {
                 }
 
                 if (!relativeUrl.startsWith("/")) {
-                    relativeUrl = "/" + relativeUrl;
+                    relativeUrl = root.getPath() + "/" + relativeUrl;
+                }
+                else {
+                    relativeUrl = root.getPath() + relativeUrl;
                 }
 
                 URI full = root.resolve(relativeUrl);
